@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OmniPost - Self-Hosted Social Media Cross-Posting Engine</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="landing-body">
+  <!-- Soft Ambient Glow Backgrounds -->
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+  <div class="glow-orb orb-3"></div>
+
+  <!-- Navigation -->
+  <header class="landing-header">
+    <div class="navbar-glass">
+      <div class="logo-area">
+        <div class="logo-icon">🚀</div>
+        <span class="logo-text">OmniPost</span>
+      </div>
+      <nav class="landing-nav-links">
+        <a href="#features">Features</a>
+        <a href="#about">Architecture</a>
+        <a href="#hosting" class="nav-badge-link">Web Hosting</a>
+      </nav>
+      <div class="navbar-actions">
+        <a href="/login" class="btn btn-secondary btn-nav">Sign In</a>
+        <a href="/dashboard" class="btn btn-primary btn-nav">Launch Desk</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-container">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <span>Self-Hosted & Complete Data Privacy</span>
+      </div>
+      <h1 class="hero-title">
+        Publish Once. <br>
+        <span class="text-gradient">Cross-Post Everywhere.</span>
+      </h1>
+      <p class="hero-subtitle">
+        Deploy your own secure social media dashboard. Instantly distribute vertical videos, reels, and shorts to YouTube, Instagram, and Facebook concurrently. Zero subscription fees.
+      </p>
+      <div class="hero-ctas">
+        <a href="/dashboard" class="btn btn-primary btn-hero">
+          Get Started Free <span>➔</span>
+        </a>
+        <a href="#features" class="btn btn-secondary btn-hero">Explore Capabilities</a>
+      </div>
+      
+      <!-- Interactive Hero UI Showcase Preview -->
+      <div class="hero-preview-wrapper">
+        <div class="glass-card hero-preview-card">
+          <div class="preview-header">
+            <div class="dots-group">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <div class="preview-url-bar">https://omnipost.onrender.com/dashboard</div>
+          </div>
+          <div class="preview-body-mock">
+            <div class="mock-sidebar">
+              <div class="mock-logo">🚀 OmniPost</div>
+              <div class="mock-nav-item active">📁 Publish Desk</div>
+              <div class="mock-nav-item">Hub</div>
+              <div class="mock-nav-item">Logs</div>
+              <div class="mock-nav-item">Settings</div>
+            </div>
+            <div class="mock-content">
+              <div class="mock-header">
+                <h3>Publish Desk</h3>
+                <p>Distribute vertical videos to multiple networks simultaneously.</p>
+              </div>
+              <div class="mock-grid">
+                <div class="mock-card upload-mock">
+                  <div class="mock-icon">🎬</div>
+                  <p>vertical_short.mp4</p>
+                  <span class="mock-tag">Ready to Cross-Post</span>
+                </div>
+                <div class="mock-card meta-mock">
+                  <div class="mock-field">YouTube Title: <span class="white-text">My Epic Short! #shorts</span></div>
+                  <div class="mock-field">Caption: <span class="white-text">Check this out! 🔥 #reels #viral</span></div>
+                  <div class="mock-platforms">
+                    <span class="p-badge yt">✓ YouTube Shorts</span>
+                    <span class="p-badge ig">✓ Instagram Reels</span>
+                    <span class="p-badge fb">✓ Facebook Reels</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Capabilities Feature Grid -->
+  <section class="features-section" id="features">
+    <div class="section-header">
+      <h2>Engineered for Creators</h2>
+      <p>A beautiful, fully self-hosted dashboard giving you absolute authority over your video workflows and accounts.</p>
+    </div>
+    
+    <div class="features-grid">
+      <!-- Feature 1: YouTube -->
+      <div class="glass-card feature-card card-yt">
+        <div class="feature-icon">🎥</div>
+        <h3>YouTube Shorts</h3>
+        <p>Post high-definition Shorts directly through Google's official YouTube API, automatically integrating tags and enforcing character constraints.</p>
+      </div>
+
+      <!-- Feature 2: Instagram -->
+      <div class="glass-card feature-card card-ig">
+        <div class="feature-icon">📸</div>
+        <h3>Instagram Reels</h3>
+        <p>Integrates with the Facebook Graph API to dynamically host media containers, poll render states, and launch Instagram Reels live instantly.</p>
+      </div>
+
+      <!-- Feature 3: Facebook -->
+      <div class="glass-card feature-card card-fb">
+        <div class="feature-icon">👥</div>
+        <h3>Facebook Reels</h3>
+        <p>Upload video binary streams concurrently using chunk-based page reels ingestion, adding descriptions and custom tags dynamically.</p>
+      </div>
+
+      <!-- Feature 4: Cloud Database -->
+      <div class="glass-card feature-card card-sb">
+        <div class="feature-icon">⚡</div>
+        <h3>Supabase Cloud Persistence</h3>
+        <p>Integrate with a free Supabase cloud database to persist your OAuth credentials, active access tokens, and publication logs permanently.</p>
+      </div>
+
+      <!-- Feature 5: Security -->
+      <div class="glass-card feature-card card-sec">
+        <div class="feature-icon">🛡️</div>
+        <h3>Self-Hosted & Private</h3>
+        <p>All Google API client secrets, Meta keys, and user authentication remain stored directly on your own hardware or cloud server. No middleman.</p>
+      </div>
+
+      <!-- Feature 6: Real-time logs -->
+      <div class="glass-card feature-card card-logs">
+        <div class="feature-icon">📋</div>
+        <h3>Interactive Logs</h3>
+        <p>Comprehensive tracking showing step-by-step progress bars, completion levels, failed platforms, and watch URLs for successful uploads.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Architecture Detail -->
+  <section class="about-section" id="about">
+    <div class="about-glass">
+      <div class="about-grid">
+        <div class="about-text">
+          <span class="text-tag">Security Conscious</span>
+          <h2>The Self-Hosted Advantage</h2>
+          <p>Commercial cross-posting tools charge hefty monthly subscriptions, restrict your usage, and store your access tokens on third-party servers. <strong>OmniPost is yours.</strong></p>
+          <p>By deploying OmniPost directly to your own free web hosting, you obtain 100% data ownership, bypass commercial limitations, and interact directly with platform APIs.</p>
+          <div class="about-stats">
+            <div class="stat-item">
+              <h4>$0</h4>
+              <p>Monthly Fees</p>
+            </div>
+            <div class="stat-item">
+              <h4>100%</h4>
+              <p>Privacy Assured</p>
+            </div>
+          </div>
+        </div>
+        <div class="about-visual">
+          <div class="architecture-node-list">
+            <div class="arch-node">👤 Admin Client</div>
+            <div class="arch-line"></div>
+            <div class="arch-node active-node">🚀 Express Server (Self-Hosted)</div>
+            <div class="arch-line"></div>
+            <div class="arch-node-group">
+              <span class="arch-subnode">YouTube API</span>
+              <span class="arch-subnode">Instagram API</span>
+              <span class="arch-subnode">Facebook API</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Footer Section -->
+  <footer class="landing-footer" id="hosting">
+    <div class="footer-glow"></div>
+    <div class="footer-container">
+      <h3>Ready to own your cross-posts?</h3>
+      <p>Host OmniPost on the web completely free using Render, GitHub, and Supabase in under 10 minutes.</p>
+      <div class="footer-actions">
+        <a href="/dashboard" class="btn btn-primary btn-hero">Launch Dashboard</a>
+        <a href="https://github.com" target="_blank" class="btn btn-secondary btn-hero">Star on GitHub</a>
+      </div>
+      <div class="footer-meta">
+        <p>© 2026 OmniPost social media dashboard. Built with absolute privacy in mind.</p>
+        <p>Licensed under MIT.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

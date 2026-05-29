@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+    // Security check: Bounce immediately if no active token exists
+    if (!localStorage.getItem('omnipost_session')) {
+      window.location.replace('/login');
+    }
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OmniPost - Social Media Cross-Poster</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Soft Ambient Glow Backgrounds -->
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="logo-area">
+        <div class="logo-icon">🚀</div>
+        <span class="logo-text">OmniPost</span>
+      </div>
+      
+      <nav class="nav-menu">
+        <button class="nav-item active" data-tab="publish">
+          <span class="icon">📁</span>
+          <span>Publish Desk</span>
+        </button>
+        <button class="nav-item" data-tab="accounts">
+          <span class="icon">🔑</span>
+          <span>Accounts Hub</span>
+        </button>
+        <button class="nav-item" data-tab="logs">
+          <span class="icon">📋</span>
+          <span>Activity Logs</span>
+        </button>
+        <button class="nav-item" data-tab="settings">
+          <span class="icon">⚙️</span>
+          <span>API Settings</span>
+        </button>
+        <button class="nav-item nav-logout-btn" id="btnSignOut">
+          <span class="icon">🚪</span>
+          <span>Sign Out</span>
+        </button>
+      </nav>
+
+      <div class="demo-banner" id="demoModeIndicator">
+        <div class="pulse"></div>
+        <span>Demo Mode Active</span>
+      </div>
+    </aside>
+
+    <!-- Main Workspace Area -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="top-header">
+        <h1 id="pageTitle">Publish Desk</h1>
+        <p id="pageSubtitle">Create and distribute video content to multiple networks simultaneously.</p>
+      </header>
+
+      <!-- Tab Content: Publish Desk -->
+      <section class="tab-pane active" id="tab-publish">
+        <div class="publish-grid">
+          <!-- Left: Upload and Preview -->
+          <div class="upload-deck">
+            <div class="glass-card upload-container" id="dropzone">
+              <input type="file" id="videoInput" accept="video/mp4,video/quicktime" style="display: none;">
+              
+              <div class="upload-prompt" id="uploadPrompt">
+                <div class="upload-icon">🎬</div>
+                <h3>Drag & Drop Video</h3>
+                <p>MP4 or MOV format, recommended under 60 seconds</p>
+                <button class="btn btn-secondary" onclick="document.getElementById('videoInput').click()">Browse Files</button>
+              </div>
+
+              <div class="video-preview-wrapper" id="previewWrapper" style="display: none;">
+                <video id="videoPreview" controls></video>
+                <div class="video-info-tag">
+                  <span id="videoNameLabel">video.mp4</span> • <span id="videoSizeLabel">0 MB</span>
+                </div>
+                <button class="btn-clear" id="btnRemoveVideo">Change Video</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Text Content & Channels -->
+          <div class="meta-deck">
+            <!-- Metadata Card -->
+            <div class="glass-card editor-card">
+              <h3>Post Metadata</h3>
+              
+              <div class="form-group">
+                <label for="postTitle">YouTube Title (Shorts)</label>
+                <input type="text" id="postTitle" placeholder="Write an engaging title..." maxlength="100">
+                <span class="char-counter"><span id="titleCharCount">0</span>/100</span>
+              </div>
+
+              <div class="form-group">
+                <label for="postCaption">Reels Caption (Facebook & Instagram)</label>
+                <textarea id="postCaption" rows="5" placeholder="Write your description, tags, and topics here..." maxlength="2000"></textarea>
+                <span class="char-counter"><span id="captionCharCount">0</span>/2000</span>
+              </div>
+            </div>
+
+            <!-- Platform Grid Selector -->
+            <div class="glass-card channel-card">
+              <h3>Publishing Channels</h3>
+              
+              <div class="channel-selector-grid">
+                <!-- YouTube Short -->
+                <div class="channel-toggle-item disabled" id="channel-yt">
+                  <div class="channel-main">
+                    <span class="channel-brand-icon brand-yt">🎥</span>
+                    <div class="channel-details">
+                      <span class="channel-name">YouTube Shorts</span>
+                      <span class="channel-status-label" id="status-label-yt">Not Configured</span>
+                    </div>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="check-yt" disabled>
+                    <span class="slider"></span>
+                  </label>
+                </div>
+
+                <!-- Instagram Reels -->
+                <div class="channel-toggle-item disabled" id="channel-ig">
+                  <div class="channel-main">
+                    <span class="channel-brand-icon brand-ig">📸</span>
+                    <div class="channel-details">
+                      <span class="channel-name">Instagram Reels</span>
+                      <span class="channel-status-label" id="status-label-ig">Not Configured</span>
+                    </div>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="check-ig" disabled>
+                    <span class="slider"></span>
+                  </label>
+                </div>
+
+                <!-- Facebook Reels -->
+                <div class="channel-toggle-item disabled" id="channel-fb">
+                  <div class="channel-main">
+                    <span class="channel-brand-icon brand-fb">👥</span>
+                    <div class="channel-details">
+                      <span class="channel-name">Facebook Reels</span>
+                      <span class="channel-status-label" id="status-label-fb">Not Configured</span>
+                    </div>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="check-fb" disabled>
+                    <span class="slider"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Button -->
+            <button class="btn btn-primary btn-full-width" id="btnPublish" disabled>
+              Publish to Selected Channels
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab Content: Connected Accounts -->
+      <section class="tab-pane" id="tab-accounts">
+        <div class="glass-card accounts-hub">
+          <div class="accounts-header">
+            <h3>Connected Integrations</h3>
+            <p>Connect your YouTube channel and Meta accounts to authorize OmniPost.</p>
+          </div>
+
+          <div class="account-list">
+            <!-- Google/YouTube Account -->
+            <div class="account-row" id="account-row-yt">
+              <div class="account-profile">
+                <div class="profile-brand-icon brand-yt">🎥</div>
+                <div class="profile-meta">
+                  <h4>YouTube Integration</h4>
+                  <p id="account-desc-yt">Channel not linked</p>
+                </div>
+              </div>
+              <div class="account-action">
+                <button class="btn btn-secondary" id="btnConnectYt" onclick="window.open('/api/auth/google', '_blank')">Link Channel</button>
+                <button class="btn btn-danger" id="btnDisconnectYt" style="display: none;">Disconnect</button>
+              </div>
+            </div>
+
+            <!-- Meta Facebook & Instagram Account -->
+            <div class="account-row" id="account-row-meta">
+              <div class="account-profile">
+                <div class="profile-brand-icon brand-fb">👥</div>
+                <div class="profile-meta">
+                  <h4>Meta (Facebook & Instagram)</h4>
+                  <p id="account-desc-meta">Profiles not linked</p>
+                </div>
+              </div>
+              <div class="account-action">
+                <button class="btn btn-secondary" id="btnConnectMeta" onclick="window.open('/api/auth/meta', '_blank')">Link Accounts</button>
+                <button class="btn btn-danger" id="btnDisconnectMeta" style="display: none;">Disconnect</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab Content: Activity Logs -->
+      <section class="tab-pane" id="tab-logs">
+        <div class="glass-card logs-panel">
+          <div class="logs-header">
+            <h3>Publish History</h3>
+            <p>A history of your published videos and their connection outputs.</p>
+          </div>
+          
+          <div class="logs-list-wrapper">
+            <table class="logs-table">
+              <thead>
+                <tr>
+                  <th>Date & Time</th>
+                  <th>Video File</th>
+                  <th>Metadata Preview</th>
+                  <th>Publication Status</th>
+                </tr>
+              </thead>
+              <tbody id="logsTableBody">
+                <tr>
+                  <td colspan="4" class="no-logs">No videos published yet.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab Content: Settings -->
+      <section class="tab-pane" id="tab-settings">
+        <div class="settings-grid">
+          <!-- Left: Credentials Config Form -->
+          <div class="glass-card settings-card">
+            <h3>App Configuration & API Keys</h3>
+            <p style="margin-bottom: 24px; color: var(--text-secondary); font-size: 0.9rem;">
+              Set your credentials to switch off Demo Mode. Tokens are saved securely on your local computer.
+            </p>
+            
+            <form id="settingsForm">
+              <!-- Demo Mode Toggle -->
+              <div class="setting-item-toggle">
+                <div class="toggle-text">
+                  <strong>Simulated Demo Mode</strong>
+                  <p>Check this to test the system interface and animations without active API keys.</p>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="settingsDemoMode" checked>
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <div class="divider"></div>
+
+              <!-- Google Developer credentials -->
+              <div class="settings-group-header">
+                <h4>1. YouTube (Google Cloud Console Keys)</h4>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="googleClientId">Google Client ID</label>
+                  <input type="text" id="googleClientId" placeholder="Enter Google OAuth Client ID...">
+                </div>
+                <div class="form-group">
+                  <label for="googleClientSecret">Google Client Secret</label>
+                  <input type="password" id="googleClientSecret" placeholder="Enter Google OAuth Client Secret...">
+                </div>
+              </div>
+
+              <!-- Meta Developer credentials -->
+              <div class="settings-group-header" style="margin-top: 24px;">
+                <h4>2. Facebook & Instagram (Meta Developer App Keys)</h4>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="metaClientId">Meta App ID</label>
+                  <input type="text" id="metaClientId" placeholder="Enter Meta App ID...">
+                </div>
+                <div class="form-group">
+                  <label for="metaClientSecret">Meta App Secret</label>
+                  <input type="password" id="metaClientSecret" placeholder="Enter Meta App Secret...">
+                </div>
+              </div>
+
+              <!-- Callback Guide details -->
+              <div class="callback-card">
+                <h5>Authorized OAuth Callback Redirect URIs:</h5>
+                <p>Paste these exact redirect URLs inside your developer portal settings:</p>
+                <ul>
+                  <li>YouTube: <code id="ytRedirectUri">http://localhost:3000/api/auth/google/callback</code></li>
+                  <li>Meta: <code id="metaRedirectUri">http://localhost:3000/api/auth/meta/callback</code></li>
+                </ul>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="margin-top: 24px;">Save Credentials</button>
+            </form>
+          </div>
+
+          <!-- Right: Helper setup Guide -->
+          <div class="glass-card guide-card">
+            <h3>Initial Developer Setup Guide</h3>
+            <div class="guide-scroll">
+              <div class="guide-step">
+                <div class="step-badge">1</div>
+                <div>
+                  <strong>Get YouTube API Keys (Google Cloud)</strong>
+                  <p>Go to <a href="https://console.cloud.google.com/" target="_blank">Google Cloud Console</a>, create a project, enable the <strong>YouTube Data API v3</strong>, and create an <strong>OAuth 2.0 Client ID</strong> (select "Web Application"). Add the redirect URL shown on the left under "Authorized redirect URIs".</p>
+                </div>
+              </div>
+
+              <div class="guide-step">
+                <div class="step-badge">2</div>
+                <div>
+                  <strong>Get Meta App Keys (Facebook / Instagram)</strong>
+                  <p>Go to <a href="https://developers.facebook.com/" target="_blank">Meta for Developers</a>, create an app, add the **Facebook Login** product, and select "Web" platform. Set the redirect URL shown on the left. Retrieve your App ID and App Secret from the Dashboard Settings.</p>
+                </div>
+              </div>
+
+              <div class="guide-step">
+                <div class="step-badge">3</div>
+                <div>
+                  <strong>Turn off Demo Mode & Post!</strong>
+                  <p>Save the credentials inside Settings, connect your accounts inside the Accounts tab, select your channels on the Publish desk, upload your video, and publish live instantly!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Real-time Progress Overlay Console -->
+  <div class="progress-overlay" id="progressOverlay" style="display: none;">
+    <div class="glass-card progress-console">
+      <div class="console-header">
+        <div>
+          <h3>Publishing Console</h3>
+          <p id="progressVideoTitle">Distributing video.mp4...</p>
+        </div>
+        <div class="loader-ring"></div>
+      </div>
+      
+      <div class="platform-progress-rows" id="progressRows">
+        <!-- Progress elements will be dynamically injected here for active platforms -->
+      </div>
+
+      <div class="console-footer">
+        <button class="btn btn-secondary" id="btnCloseConsole" disabled>Close Console</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

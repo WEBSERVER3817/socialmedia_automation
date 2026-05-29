@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In - OmniPost Admin</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-body">
+  <!-- Soft Ambient Glow Backgrounds -->
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+
+  <div class="login-container">
+    <div class="glass-card login-card">
+      <div class="login-header">
+        <div class="login-logo">🚀</div>
+        <h2>Admin Portal</h2>
+        <p>Sign in to configure channels and publish video content.</p>
+      </div>
+
+      <!-- Live Error Notification -->
+      <div class="error-banner" id="loginError" style="display: none;">
+        <span class="error-icon">⚠️</span>
+        <span class="error-text" id="loginErrorMsg">Invalid username or password.</span>
+      </div>
+
+      <form id="loginForm">
+        <div class="form-group login-group">
+          <label for="username">Administrator Username</label>
+          <div class="input-wrapper">
+            <span class="input-icon">👤</span>
+            <input type="text" id="username" placeholder="Enter username..." required autocomplete="username">
+          </div>
+        </div>
+
+        <div class="form-group login-group" style="margin-top: 20px;">
+          <label for="password">Security Password</label>
+          <div class="input-wrapper">
+            <span class="input-icon">🔒</span>
+            <input type="password" id="password" placeholder="Enter password..." required autocomplete="current-password">
+          </div>
+        </div>
+
+        <div class="login-options" style="margin-top: 18px; display: flex; justify-content: space-between; align-items: center;">
+          <label class="checkbox-container">
+            <input type="checkbox" id="rememberMe" checked>
+            <span class="checkmark"></span>
+            <span class="checkbox-label" style="font-size: 0.85rem; color: var(--text-secondary);">Remember my session</span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full-width btn-login" style="margin-top: 24px;">
+          Sign In <span>➔</span>
+        </button>
+      </form>
+
+      <div class="login-helper">
+        <h5>🔧 Quick Local Testing:</h5>
+        <p>Use default self-hosted credentials: <br><strong>Username:</strong> <code>admin</code> | <strong>Password:</strong> <code>admin</code></p>
+      </div>
+    </div>
+    
+    <div class="login-back-link">
+      <a href="/">← Return to Landing Page</a>
+    </div>
+  </div>
+
+  <!-- Client-side login flow javascript -->
+  <script>
+    // If already logged in, skip login screen and redirect to dashboard
+    if (localStorage.getItem('omnipost_session')) {
+      window.location.href = '/dashboard';
+    }
+
+    const loginForm = document.getElementById('loginForm');
+    const loginError = document.getElementById('loginError');
+    const loginErrorMsg = document.getElementById('loginErrorMsg');
+    const btnSubmit = loginForm.querySelector('button[type="submit"]');
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const rememberMe = document.getElementById('rememberMe').checked;
+
+      // Update button state to loading
+      btnSubmit.disabled = true;
+      btnSubmit.innerHTML = 'Signing In... <span class="loading-spinner"></span>';
+      loginError.style.display = 'none';
+
+      try {
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          // Success! Save session token
+          localStorage.setItem('omnipost_session', result.token);
+          if (rememberMe) {
+            // Also store in cookie or local storage indefinitely
+            localStorage.setItem('omnipost_remember', 'true');
+          }
+          
+          btnSubmit.innerHTML = 'Authenticated! Redirecting...';
+          btnSubmit.classList.add('btn-ready');
+          
+          setTimeout(() => {
+            window.location.href = '/dashboard';
+          }, 800);
+        } else {
+          // Error response
+          throw new Error(result.error || 'Connection failed.');
+        }
+      } catch (err) {
+        // Handle error
+        loginErrorMsg.textContent = err.message;
+        loginError.style.display = 'flex';
+        btnSubmit.disabled = false;
+        btnSubmit.innerHTML = 'Sign In <span>➔</span>';
+      }
+    });
+  </script>
+</body>
+</html>

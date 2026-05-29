@@ -1,0 +1,32 @@
+{
+  "name": "omnipost",
+  "version": "1.0.0",
+  "description": "Self-hosted YouTube, Instagram and Facebook video cross-posting dashboard",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "cross-post",
+    "social-media",
+    "reels",
+    "shorts",
+    "meta",
+    "youtube",
+    "instagram"
+  ],
+  "author": "Antigravity",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.8",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "googleapis": "latest",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
