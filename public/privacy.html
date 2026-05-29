@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — OmniPost</title>
+  <meta name="description" content="OmniPost Privacy Policy. Learn how we handle your data, OAuth tokens, and credentials when using the OmniPost social media cross-posting dashboard.">
+  <link rel="canonical" href="https://omnipost-ud2h.onrender.com/privacy">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .legal-page { min-height: 100vh; position: relative; z-index: 1; padding: 60px 20px 80px; }
+    .legal-container { max-width: 820px; margin: 0 auto; }
+    .legal-header { text-align: center; margin-bottom: 56px; }
+    .legal-header .logo-area { justify-content: center; margin-bottom: 32px; }
+    .legal-header h1 { font-family: 'Outfit', sans-serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 12px; }
+    .legal-header .effective-date { color: var(--text-muted); font-size: 0.9rem; }
+    .legal-body { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 48px; }
+    .legal-body h2 { font-family: 'Outfit', sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--text-primary); margin: 40px 0 12px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .legal-body h2:first-child { margin-top: 0; }
+    .legal-body p, .legal-body li { color: var(--text-secondary); line-height: 1.8; font-size: 0.95rem; margin-bottom: 12px; }
+    .legal-body ul { padding-left: 20px; }
+    .legal-body li { margin-bottom: 8px; }
+    .legal-body strong { color: var(--text-primary); }
+    .legal-body a { color: var(--accent-cyan); text-decoration: none; }
+    .legal-body a:hover { text-decoration: underline; }
+    .legal-highlight { background: rgba(56, 189, 248, 0.07); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 10px; padding: 16px 20px; margin: 20px 0; }
+    .legal-footer-nav { text-align: center; margin-top: 40px; }
+    .legal-footer-nav a { color: var(--text-secondary); text-decoration: none; margin: 0 16px; font-size: 0.9rem; }
+    .legal-footer-nav a:hover { color: var(--text-primary); }
+    @media (max-width: 600px) { .legal-body { padding: 28px 20px; } }
+  </style>
+</head>
+<body class="landing-body">
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+
+  <div class="legal-page">
+    <div class="legal-container">
+      <div class="legal-header">
+        <a href="/" class="logo-area" style="display:flex; align-items:center; gap:10px; text-decoration:none; margin-bottom:32px;">
+          <div class="logo-icon">🚀</div>
+          <span class="logo-text">OmniPost</span>
+        </a>
+        <h1>Privacy Policy</h1>
+        <p class="effective-date">Effective Date: 30 May 2025 &nbsp;|&nbsp; Last Updated: 30 May 2025</p>
+      </div>
+
+      <div class="legal-body">
+
+        <h2>1. Overview</h2>
+        <p>OmniPost ("we", "our", "the Service") is a self-hosted social media cross-posting dashboard. This Privacy Policy explains what information is processed when you deploy and use OmniPost, how that information is stored, and your rights over it.</p>
+        <div class="legal-highlight">
+          <strong>Key principle:</strong> OmniPost is a self-hosted, administrator-only tool. We do not collect, sell, or share any personal data with third parties. All credentials remain on your own server or your personal Supabase database instance.
+        </div>
+
+        <h2>2. What Information We Process</h2>
+        <p>When you use OmniPost, the following categories of data are handled:</p>
+        <ul>
+          <li><strong>OAuth Access Tokens</strong> — YouTube (Google) and Meta (Facebook/Instagram) OAuth tokens obtained during the account connection flow. These are stored encrypted within your personal Supabase database or on your server's local filesystem.</li>
+          <li><strong>API Credentials</strong> — Your Google Cloud Console Client ID/Secret and Meta App ID/Secret. Entered manually in the Settings panel and stored in your personal database only.</li>
+          <li><strong>Video Files</strong> — Videos you upload via the Publish Desk are stored temporarily on the server's disk during upload processing and permanently deleted immediately after successful distribution to selected platforms.</li>
+          <li><strong>Publish Logs</strong> — A history of your publishing activity (video name, title, caption, platform results). Stored in your own Supabase database for your personal reference.</li>
+          <li><strong>Session Token</strong> — A local browser session token stored in your browser's <code>localStorage</code> to maintain your admin login state.</li>
+        </ul>
+
+        <h2>3. How Data is Stored</h2>
+        <ul>
+          <li><strong>Cloud Database (Supabase)</strong> — If you have configured Supabase integration, your configuration and tokens are stored in a PostgreSQL database within your own Supabase project. Supabase provides AES-256 encryption at rest and TLS encryption in transit. Refer to <a href="https://supabase.com/privacy" target="_blank">Supabase's Privacy Policy</a> for their data practices.</li>
+          <li><strong>Local Filesystem</strong> — When running locally, configuration is stored in <code>config.json</code> on your local machine. This file is excluded from version control via <code>.gitignore</code>.</li>
+          <li><strong>Server Memory</strong> — Active upload task statuses are held in server memory temporarily and are cleared when the server restarts.</li>
+        </ul>
+
+        <h2>4. Third-Party Platform APIs</h2>
+        <p>OmniPost communicates directly with the following third-party platforms on your behalf:</p>
+        <ul>
+          <li><strong>Google / YouTube API</strong> — Used to upload videos to your YouTube channel. Subject to <a href="https://policies.google.com/privacy" target="_blank">Google's Privacy Policy</a>.</li>
+          <li><strong>Meta Graph API</strong> — Used to publish Reels to your Facebook Page and Instagram Business Account. Subject to <a href="https://www.facebook.com/privacy/policy" target="_blank">Meta's Privacy Policy</a>.</li>
+        </ul>
+        <p>OmniPost does not share your data with any other third parties and does not use advertising networks or analytics SDKs.</p>
+
+        <h2>5. Data Retention</h2>
+        <ul>
+          <li><strong>Video uploads</strong> are deleted from the server immediately after processing (within minutes).</li>
+          <li><strong>Tokens and credentials</strong> are retained until you explicitly disconnect the platform via the Accounts Hub or delete your Supabase database record.</li>
+          <li><strong>Publish logs</strong> retain the last 50 entries in your database. Older entries are automatically overwritten.</li>
+        </ul>
+
+        <h2>6. Your Rights (Indian DPDP Act 2023)</h2>
+        <p>As a self-hosted administrator, you have complete control over all data processed by OmniPost:</p>
+        <ul>
+          <li><strong>Right to Access</strong> — View all stored config via the Settings and Accounts tabs.</li>
+          <li><strong>Right to Erasure</strong> — Disconnect platforms to remove tokens. Delete your Supabase project to erase all data completely.</li>
+          <li><strong>Right to Portability</strong> — Your data resides in your own database. You may export it at any time via the Supabase dashboard.</li>
+        </ul>
+
+        <h2>7. Cookies & Local Storage</h2>
+        <p>OmniPost stores a single session token in your browser's <code>localStorage</code> to maintain your administrator login. No tracking cookies or analytics cookies are used. The session token is cleared when you click "Sign Out".</p>
+
+        <h2>8. Children's Privacy</h2>
+        <p>OmniPost is an administrator-only technical tool not intended for use by individuals under the age of 18. We do not knowingly process data from minors.</p>
+
+        <h2>9. Changes to This Policy</h2>
+        <p>We may update this Privacy Policy from time to time. Any changes will be reflected by updating the "Last Updated" date at the top of this page. Continued use of the service after changes constitutes acceptance of the revised policy.</p>
+
+        <h2>10. Contact</h2>
+        <p>For any privacy-related questions or data requests, please contact the system administrator who deployed this instance of OmniPost or raise an issue at the <a href="https://github.com/WEBSERVER3817/socialmedia_automation" target="_blank">GitHub Repository</a>.</p>
+
+      </div>
+
+      <div class="legal-footer-nav">
+        <a href="/">← Home</a>
+        <a href="/terms">Terms of Service</a>
+        <a href="/dashboard">Dashboard</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

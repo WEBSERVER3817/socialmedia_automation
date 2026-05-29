@@ -9,7 +9,10 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OmniPost - Social Media Cross-Poster</title>
+  <title>Dashboard — OmniPost Social Media Publishing</title>
+  <meta name="description" content="OmniPost admin dashboard — publish videos to YouTube Shorts, Instagram Reels, and Facebook Reels simultaneously from one command center.">
+  <link rel="canonical" href="https://omnipost-ud2h.onrender.com/dashboard">
+  <meta name="robots" content="noindex, nofollow">
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,6 +54,7 @@
           <span>Sign Out</span>
         </button>
       </nav>
+      <div class="sidebar-version">v1.0.0 · OmniPost</div>
 
       <div class="demo-banner" id="demoModeIndicator">
         <div class="pulse"></div>
@@ -106,7 +110,16 @@
               <div class="form-group">
                 <label for="postCaption">Reels Caption (Facebook & Instagram)</label>
                 <textarea id="postCaption" rows="5" placeholder="Write your description, tags, and topics here..." maxlength="2000"></textarea>
-                <span class="char-counter"><span id="captionCharCount">0</span>/2000</span>
+                <span class="char-counter" id="captionCounter"><span id="captionCharCount">0</span>/2000</span>
+              <div class="hashtag-bank">
+                <span class="hashtag-label">Quick tags:</span>
+                <button type="button" class="hashtag-chip" onclick="appendHashtag('#reels')">#reels</button>
+                <button type="button" class="hashtag-chip" onclick="appendHashtag('#shorts')">#shorts</button>
+                <button type="button" class="hashtag-chip" onclick="appendHashtag('#viral')">#viral</button>
+                <button type="button" class="hashtag-chip" onclick="appendHashtag('#trending')">#trending</button>
+                <button type="button" class="hashtag-chip" onclick="appendHashtag('#india')">#india</button>
+                <button type="button" class="hashtag-chip" onclick="appendHashtag('#explore')">#explore</button>
+              </div>
               </div>
             </div>
 
@@ -232,7 +245,14 @@
               </thead>
               <tbody id="logsTableBody">
                 <tr>
-                  <td colspan="4" class="no-logs">No videos published yet.</td>
+                  <td colspan="4" style="padding:0; border:none;">
+                    <div class="logs-empty-state">
+                      <div class="empty-icon">📭</div>
+                      <h4>No publications yet</h4>
+                      <p>Your publish history will appear here once you distribute your first video.</p>
+                      <button class="btn btn-secondary" style="margin-top:8px;" onclick="document.querySelector('[data-tab=publish]').click()">Go to Publish Desk →</button>
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -300,9 +320,9 @@
                 <h5>Authorized OAuth Callback Redirect URIs:</h5>
                 <p>Paste these exact redirect URLs inside your developer portal settings:</p>
                 <ul>
-                  <li>YouTube: <code id="ytRedirectUri">http://localhost:3000/api/auth/google/callback</code></li>
-                  <li>Meta: <code id="metaRedirectUri">http://localhost:3000/api/auth/meta/callback</code></li>
-                </ul>
+                   <li>YouTube: <code id="ytRedirectUri">http://localhost:3000/api/auth/google/callback</code> <button type="button" class="btn-copy-uri" onclick="copyUri('ytRedirectUri')" title="Copy">📋 Copy</button></li>
+                   <li>Meta: <code id="metaRedirectUri">http://localhost:3000/api/auth/meta/callback</code> <button type="button" class="btn-copy-uri" onclick="copyUri('metaRedirectUri')" title="Copy">📋 Copy</button></li>
+                 </ul>
               </div>
 
               <button type="submit" class="btn btn-primary" style="margin-top: 24px;">Save Credentials</button>

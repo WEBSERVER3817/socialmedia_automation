@@ -1,3 +1,24 @@
+// ============================================
+// TOAST NOTIFICATION SYSTEM (replaces alert())
+// ============================================
+(function() {
+  const container = document.createElement('div');
+  container.id = 'toast-container';
+  document.body.appendChild(container);
+})();
+
+function showToast(message, type = 'info', duration = 4000) {
+  const icons = { success: '✅', error: '❌', info: 'ℹ️', warning: '⚠️' };
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.innerHTML = `<span class="toast-icon">${icons[type]}</span><span class="toast-msg">${message}</span>`;
+  document.getElementById('toast-container').appendChild(toast);
+  setTimeout(() => {
+    toast.classList.add('toast-out');
+    toast.addEventListener('animationend', () => toast.remove());
+  }, duration);
+}
+
 // Intercept all API fetches to add Authorization headers and catch unauthorized states
 (function() {
   const originalFetch = window.fetch;
@@ -134,6 +155,43 @@ function setupAuthListeners() {
       }
     });
   }
+}
+
+// ============================================
+// HASHTAG QUICK-INSERT
+// ============================================
+function appendHashtag(tag) {
+  const el = document.getElementById('postCaption');
+  if (!el) return;
+  const sep = el.value.length > 0 && !el.value.endsWith(' ') ? ' ' : '';
+  el.value += sep + tag;
+  captionCharCount.textContent = el.value.length;
+  updateCharCounter(captionCharCount, document.getElementById('captionCounter'), el.value.length, 2000);
+  el.focus();
+}
+
+// ============================================
+// COPY REDIRECT URI TO CLIPBOARD
+// ============================================
+function copyUri(elementId) {
+  const el = document.getElementById(elementId);
+  if (!el) return;
+  navigator.clipboard.writeText(el.textContent).then(() => {
+    showToast('Redirect URI copied to clipboard!', 'success', 2500);
+  }).catch(() => {
+    showToast('Could not copy automatically. Please select and copy manually.', 'warning');
+  });
+}
+
+// ============================================
+// CHAR COUNTER COLOR CODING
+// ============================================
+function updateCharCounter(countEl, wrapperEl, count, max) {
+  if (!wrapperEl) return;
+  const ratio = count / max;
+  wrapperEl.classList.remove('warn', 'danger');
+  if (ratio >= 0.95) wrapperEl.classList.add('danger');
+  else if (ratio >= 0.80) wrapperEl.classList.add('warn');
 }
 
 function setupNavigation() {
@@ -299,7 +357,7 @@ async function disconnectPlatform(platform) {
         loadConfiguration();
       }
     } catch (err) {
-      alert('Error disconnecting connection: ' + err.message);
+      showToast('Error disconnecting connection: ' + err.message, 'error');
     }
   }
 }
@@ -384,11 +442,16 @@ function handleSelectedVideo(file) {
 
 function setupFormListeners() {
   postTitle.addEventListener('input', () => {
-    titleCharCount.textContent = postTitle.value.length;
+    const count = postTitle.value.length;
+    titleCharCount.textContent = count;
+    const wrapper = document.querySelector('.form-group:has(#postTitle) .char-counter');
+    updateCharCounter(titleCharCount, wrapper, count, 100);
   });
 
   postCaption.addEventListener('input', () => {
-    captionCharCount.textContent = postCaption.value.length;
+    const count = postCaption.value.length;
+    captionCharCount.textContent = count;
+    updateCharCounter(captionCharCount, document.getElementById('captionCounter'), count, 2000);
   });
 
   // Switch triggers
@@ -424,13 +487,13 @@ function setupFormListeners() {
       });
       const result = await response.json();
       if (result.success) {
-        alert('API Credentials updated successfully!');
+        showToast('API credentials saved successfully! ✓', 'success');
         loadConfiguration();
       } else {
-        alert('Failed to save settings: ' + result.error);
+        showToast('Failed to save settings: ' + result.error, 'error');
       }
     } catch (err) {
-      alert('Network error saving settings: ' + err.message);
+      showToast('Network error saving settings: ' + err.message, 'error');
     }
   });
 }
@@ -507,7 +570,7 @@ btnPublish.addEventListener('click', async () => {
     }
   } catch (err) {
     progressOverlay.style.display = 'none';
-    alert('Failed to upload video to local server: ' + err.message);
+    showToast('Failed to upload video to server: ' + err.message, 'error');
   }
 });
 

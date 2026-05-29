@@ -36,12 +36,25 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+// Health check endpoint for Render and uptime monitoring services
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', version: '1.0.0', service: 'OmniPost' });
+});
+
 app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
 app.get('/dashboard', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
+});
+
+app.get('/privacy', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'privacy.html'));
+});
+
+app.get('/terms', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'terms.html'));
 });
 
 // Authentication endpoints
@@ -370,6 +383,11 @@ app.get('/api/publish/status/:taskId', requireAuth, (req, res) => {
 app.get('/api/logs', requireAuth, (req, res) => {
   const config = tokenManager.loadConfig();
   res.json(config.logs || []);
+});
+
+// Custom 404 handler — must be last route
+app.use((req, res) => {
+  res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
 });
 
 // ----------------------------------------------------

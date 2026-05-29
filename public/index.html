@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OmniPost - Self-Hosted Social Media Cross-Posting Engine</title>
+  <title>OmniPost — Social Media Cross-Posting Dashboard | Publish to YouTube, Instagram & Facebook</title>
+  <meta name="description" content="OmniPost is a free, self-hosted social media dashboard to cross-post vertical videos to YouTube Shorts, Instagram Reels, and Facebook Reels simultaneously. Zero subscription fees.">
+  <meta name="keywords" content="social media automation, cross posting tool, YouTube Shorts, Instagram Reels, Facebook Reels, video publishing India">
+  <link rel="canonical" href="https://omnipost-ud2h.onrender.com/">
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,7 +68,7 @@
               <span class="dot yellow"></span>
               <span class="dot green"></span>
             </div>
-            <div class="preview-url-bar">https://omnipost.onrender.com/dashboard</div>
+            <div class="preview-url-bar">https://omnipost-ud2h.onrender.com/dashboard</div>
           </div>
           <div class="preview-body-mock">
             <div class="mock-sidebar">
@@ -200,13 +203,38 @@
       <p>Host OmniPost on the web completely free using Render, GitHub, and Supabase in under 10 minutes.</p>
       <div class="footer-actions">
         <a href="/dashboard" class="btn btn-primary btn-hero">Launch Dashboard</a>
-        <a href="https://github.com" target="_blank" class="btn btn-secondary btn-hero">Star on GitHub</a>
+        <a href="https://github.com/WEBSERVER3817/socialmedia_automation" target="_blank" class="btn btn-secondary btn-hero">⭐ Star on GitHub</a>
       </div>
       <div class="footer-meta">
-        <p>© 2026 OmniPost social media dashboard. Built with absolute privacy in mind.</p>
-        <p>Licensed under MIT.</p>
+        <p>© 2025 OmniPost. Built with absolute privacy in mind. Open-source under the MIT License.</p>
+        <div class="footer-legal-links">
+          <a href="/privacy">Privacy Policy</a>
+          <span class="footer-divider">·</span>
+          <a href="/terms">Terms of Service</a>
+          <span class="footer-divider">·</span>
+          <a href="https://github.com/WEBSERVER3817/socialmedia_automation" target="_blank">GitHub</a>
+        </div>
       </div>
     </div>
   </footer>
+
+  <!-- Session Cookie Consent Notice -->
+  <div id="cookieConsent" class="cookie-consent" style="display:none;">
+    <div class="cookie-consent-inner">
+      <p>🍪 OmniPost stores a session token in your browser's <strong>localStorage</strong> to maintain your admin login. No tracking or advertising cookies are used. <a href="/privacy">Learn more</a>.</p>
+      <button id="cookieAcceptBtn" class="btn btn-primary btn-cookie">Got it</button>
+    </div>
+  </div>
+
+  <script>
+    // Show cookie consent if not previously accepted
+    if (!localStorage.getItem('omnipost_cookie_consent')) {
+      document.getElementById('cookieConsent').style.display = 'flex';
+    }
+    document.getElementById('cookieAcceptBtn').addEventListener('click', () => {
+      localStorage.setItem('omnipost_cookie_consent', 'true');
+      document.getElementById('cookieConsent').style.display = 'none';
+    });
+  </script>
 </body>
 </html>
