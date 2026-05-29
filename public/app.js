@@ -128,19 +128,56 @@ document.addEventListener('DOMContentLoaded', () => {
   loadConfiguration();
   loadLogs();
   setupAuthListeners();
+  setupMobileMenu();
 
   // Periodically poll configuration when accounts tab is active
-  // This automatically detects when the OAuth popups are closed/successful
   accountPollInterval = setInterval(() => {
     const activeNav = document.querySelector('.nav-item.active');
     if (activeNav) {
       const activeTab = activeNav.dataset.tab;
       if (activeTab === 'accounts' || activeTab === 'publish') {
-        loadConfiguration(true); // silent load
+        loadConfiguration(true);
       }
     }
   }, 4000);
 });
+
+// ============================================
+// MOBILE HAMBURGER MENU
+// ============================================
+function setupMobileMenu() {
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  if (!hamburgerBtn || !sidebar || !overlay) return;
+
+  function openSidebar() {
+    sidebar.classList.add('open');
+    overlay.classList.add('active');
+    hamburgerBtn.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeSidebar() {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('active');
+    hamburgerBtn.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  hamburgerBtn.addEventListener('click', () => {
+    sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
+  });
+
+  overlay.addEventListener('click', closeSidebar);
+
+  // Auto-close sidebar when a nav tab item is clicked on mobile
+  document.querySelectorAll('.nav-item[data-tab]').forEach(item => {
+    item.addEventListener('click', () => {
+      if (window.innerWidth <= 768) closeSidebar();
+    });
+  });
+}
 
 function setupAuthListeners() {
   const btnSignOut = document.getElementById('btnSignOut');

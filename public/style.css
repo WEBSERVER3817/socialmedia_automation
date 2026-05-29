@@ -2084,3 +2084,208 @@ input:disabled + .slider {
   border-color: rgba(6, 182, 212, 0.4);
 }
 
+/* ============================================
+   MOBILE RESPONSIVE — HAMBURGER + SIDEBAR
+   ============================================ */
+
+/* Mobile topbar — hidden on desktop */
+.mobile-topbar {
+  display: none;
+}
+
+/* Sidebar overlay backdrop — hidden by default */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 49;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar-overlay.active {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+
+  /* Fix body scroll on mobile */
+  body {
+    overflow: auto;
+    height: auto;
+  }
+
+  /* App container becomes a single column */
+  .app-container {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  /* Show the mobile topbar */
+  .mobile-topbar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    background-color: var(--bg-sidebar);
+    border-bottom: 1px solid var(--glass-border);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .mobile-logo-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Hamburger button */
+  .hamburger-btn {
+    background: none;
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 8px 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+
+  .hamburger-btn:hover {
+    background: rgba(255,255,255,0.05);
+  }
+
+  .hamburger-btn span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background-color: var(--text-primary);
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+  }
+
+  /* Hamburger X animation when open */
+  .hamburger-btn.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .hamburger-btn.open span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  .hamburger-btn.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* Show the sidebar overlay on mobile */
+  .sidebar-overlay {
+    display: block;
+    pointer-events: none;
+  }
+
+  .sidebar-overlay.active {
+    pointer-events: all;
+  }
+
+  /* Sidebar slides in from left on mobile */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 51;
+    transform: translateX(-100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 4px 0 32px rgba(0, 0, 0, 0.5);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  /* Main content full width */
+  .main-content {
+    padding: 20px 16px;
+    overflow-y: auto;
+  }
+
+  /* Publish grid becomes single column */
+  .publish-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Settings grid becomes single column */
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Form row becomes single column */
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  /* Logs table scroll */
+  .logs-list-wrapper {
+    overflow-x: auto;
+  }
+
+  /* Account rows wrap on small screens */
+  .account-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .account-action {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+  }
+
+  .account-action .btn {
+    flex: 1;
+  }
+
+  /* Progress overlay on mobile */
+  .progress-console {
+    width: 90vw;
+    max-width: 380px;
+  }
+
+  /* Top header adjustments */
+  .top-header h1 {
+    font-size: 1.6rem;
+  }
+
+  /* Toast position on mobile */
+  #toast-container {
+    top: auto;
+    bottom: 80px;
+    left: 16px;
+    right: 16px;
+  }
+
+  .toast {
+    min-width: unset;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-ctas {
+    flex-direction: column;
+  }
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
